@@ -50,9 +50,12 @@ function jogar() {
         mostrarMensagem(`Que pena! O número secreto era ${numeroSecreto}.`);
         botaoChutar.disabled = true;
         botaoReiniciar.disabled = false;
-    } else {
+    } else if (numeroChutado < numeroSecreto) {
+        mostrarMensagem(`Você errou! O número secreto é maior! Tentativa ${tentativas} de ${maxTentativas}`);
         tentativas++;
-        mostrarMensagem(`Você errou! Tente novamente. Tentativa ${tentativas} de ${maxTentativas}`);
+    } else if (numeroChutado > numeroSecreto) {
+        mostrarMensagem(`Você errou! O número secreto é menor! Tentativa ${tentativas} de ${maxTentativas}`);
+        tentativas++;
     }
 
     input.value = '';
