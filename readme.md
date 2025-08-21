@@ -41,6 +41,11 @@ Este projeto é um jogo de adivinhação simples desenvolvido com JavaScript, HT
 *   Melhorar a interface do usuário.
 *   Permitir que o jogador defina o intervalo de números.
 
+
+## Verifique o resultado:
+
+* https://gabrieilima.github.io/Jogo-do-Numero-Secreto/
+
 ## Autor
 
 [Gabriel Lima]
