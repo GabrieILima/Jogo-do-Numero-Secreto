@@ -5,6 +5,7 @@ let paragrafo = document.querySelector('p');
 paragrafo.innerHTML = 'Defina o intervalo de números do jogo';
 
 let input = document.querySelector('.container__input');
+input.placeholder = 'Digite um valor';
 let botaoChutar = document.querySelector('.container__botao');
 let botaoReiniciar = document.getElementById('reiniciar');
 
@@ -13,6 +14,7 @@ let numeroSecreto = null;
 let tentativas = 1;
 let maxTentativas = 3;
 let jogoIniciado = false;
+let numerosSorteados = [];
 
 function mostrarMensagem(msg) {
     paragrafo.innerHTML = msg;
@@ -20,20 +22,39 @@ function mostrarMensagem(msg) {
 
 function definirintervalo() {
     intervalo = Number(input.value);
+    let numeroJaSorteado = false
     if (intervalo <= 0) {
         mostrarMensagem('Defina um valor positivo para o intervalo');
     } else {
         numeroSecreto = Math.floor(Math.random() * intervalo) + 1;
-        jogoIniciado = true;
-        mostrarMensagem(`O intervalo do jogo é de 1 a ${intervalo}. Tente adivinhar o número!`);
-        input.value = '';
-        input.placeholder = 'Digite seu palpite';
-        botaoChutar.innerHTML = 'Chutar';
-        botaoChutar.onclick = jogar;
-        input.focus();
+        for (let i = 0; i < numerosSorteados.length; i++) {
+            if (numeroSecreto == numerosSorteados[i]) {
+                numeroJaSorteado = true;
+                break
+            }else{
+                numeroJaSorteado = false;
+                break
+            }
+        }
+            if(numeroJaSorteado == false){
+                jogoIniciado = true;
+                mostrarMensagem(`O intervalo do jogo é de 1 a ${intervalo}. Tente adivinhar o número!`);
+                input.value = '';
+                input.placeholder = 'Digite seu palpite';
+                botaoChutar.innerHTML = 'Chutar';
+                botaoChutar.onclick = jogar;
+                input.focus();
+                numerosSorteados.push(numeroSecreto);
+                console.log(`Número secreto (para testes): ${numerosSorteados}`);
+            }else{
+                mostrarMensagem(`O número secreto ${numeroSecreto} já foi sorteado. Tente novamente.`);
+                input.value = '';
+                input.focus();
+            }
+        }
     }
-}
 
+        
 function jogar() {
     let numeroChutado = Number(input.value);
 
@@ -75,6 +96,7 @@ function reiniciarJogo() {
     botaoReiniciar.disabled = true;
     botaoChutar.onclick = definirintervalo;
     input.focus();
+    
 }
 
 // Inicialmente, o botão serve para definir o intervalo
